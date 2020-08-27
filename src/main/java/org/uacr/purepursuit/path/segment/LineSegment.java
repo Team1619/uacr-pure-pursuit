@@ -1,8 +1,8 @@
-package purepursuit.path.segment;
+package org.uacr.purepursuit.path.segment;
 
-import purepursuit.PathUtil;
-import purepursuit.math.*;
-import purepursuit.math.Vector;
+import org.uacr.purepursuit.PathUtil;
+import org.uacr.purepursuit.math.*;
+import org.uacr.purepursuit.math.Vector;
 
 import java.util.*;
 

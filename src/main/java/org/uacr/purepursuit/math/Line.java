@@ -1,6 +1,6 @@
-package purepursuit.math;
+package org.uacr.purepursuit.math;
 
-import purepursuit.PathUtil;
+import org.uacr.purepursuit.PathUtil;
 
 public class Line {
 

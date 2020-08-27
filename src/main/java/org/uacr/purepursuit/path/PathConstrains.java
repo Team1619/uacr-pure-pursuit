@@ -1,4 +1,4 @@
-package purepursuit.path;
+package org.uacr.purepursuit.path;
 
 public class PathConstrains {
 

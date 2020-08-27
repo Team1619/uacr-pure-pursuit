@@ -1,9 +1,9 @@
-package purepursuit.path.segment;
+package org.uacr.purepursuit.path.segment;
 
-import purepursuit.math.Point;
-import purepursuit.math.Pose2d;
-import purepursuit.math.Vector;
-import purepursuit.path.point.PathPoint;
+import org.uacr.purepursuit.math.Point;
+import org.uacr.purepursuit.math.Pose2d;
+import org.uacr.purepursuit.math.Vector;
+import org.uacr.purepursuit.path.point.PathPoint;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

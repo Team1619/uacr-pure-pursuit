@@ -1,7 +1,7 @@
-package purepursuit.path.point;
+package org.uacr.purepursuit.path.point;
 
-import purepursuit.math.Point;
-import purepursuit.path.heading.HeadingController;
+import org.uacr.purepursuit.math.Point;
+import org.uacr.purepursuit.path.heading.HeadingController;
 
 public class PathPoint extends Point {
 

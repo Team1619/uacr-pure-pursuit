@@ -1,9 +1,4 @@
-package purepursuit.controller;
-
-import purepursuit.math.Pose2d;
-import purepursuit.path.Path;
-
-import javax.annotation.Nullable;
+package org.uacr.purepursuit.controller;
 
 public abstract class WestCoastPurePursuitController extends PurePursuitController {
 

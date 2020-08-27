@@ -1,10 +1,10 @@
-package purepursuit.path.velocity;
+package org.uacr.purepursuit.path.velocity;
 
-import purepursuit.PathUtil;
-import purepursuit.math.Line;
-import purepursuit.math.Point;
-import purepursuit.math.Vector;
-import purepursuit.path.PathConstrains;
+import org.uacr.purepursuit.PathUtil;
+import org.uacr.purepursuit.math.Line;
+import org.uacr.purepursuit.math.Point;
+import org.uacr.purepursuit.math.Vector;
+import org.uacr.purepursuit.path.PathConstrains;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,11 @@
-package purepursuit.path;
+package org.uacr.purepursuit.path;
 
-import purepursuit.PathUtil;
-import purepursuit.math.Point;
-import purepursuit.math.Pose2d;
-import purepursuit.path.segment.Segment;
-import purepursuit.path.velocity.TrapezoidVelocityProfile;
-import purepursuit.path.velocity.VelocityProfile;
+import org.uacr.purepursuit.PathUtil;
+import org.uacr.purepursuit.math.Point;
+import org.uacr.purepursuit.math.Pose2d;
+import org.uacr.purepursuit.path.segment.Segment;
+import org.uacr.purepursuit.path.velocity.TrapezoidVelocityProfile;
+import org.uacr.purepursuit.path.velocity.VelocityProfile;
 
 import java.util.Arrays;
 import java.util.HashMap;

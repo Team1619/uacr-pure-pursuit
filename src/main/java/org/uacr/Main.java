@@ -1,7 +1,9 @@
-import purepursuit.math.Point;
-import purepursuit.math.Pose2d;
-import purepursuit.path.Path;
-import purepursuit.path.PathBuilder;
+package org.uacr;
+
+import org.uacr.purepursuit.math.Point;
+import org.uacr.purepursuit.math.Pose2d;
+import org.uacr.purepursuit.path.Path;
+import org.uacr.purepursuit.path.PathBuilder;
 
 public class Main {
     public static void main(String[] args) {

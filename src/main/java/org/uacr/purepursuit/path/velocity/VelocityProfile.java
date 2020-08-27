@@ -1,4 +1,4 @@
-package purepursuit.path.velocity;
+package org.uacr.purepursuit.path.velocity;
 
 public interface VelocityProfile {
 

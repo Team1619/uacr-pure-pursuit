@@ -1,6 +1,6 @@
-package purepursuit.path.heading;
+package org.uacr.purepursuit.path.heading;
 
-import purepursuit.math.Pose2d;
+import org.uacr.purepursuit.math.Pose2d;
 
 public abstract class HeadingController {
 

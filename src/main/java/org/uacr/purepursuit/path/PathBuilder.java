@@ -1,9 +1,9 @@
-package purepursuit.path;
+package org.uacr.purepursuit.path;
 
-import purepursuit.math.Point;
-import purepursuit.path.segment.LineSegment;
-import purepursuit.path.segment.PointSegment;
-import purepursuit.path.segment.Segment;
+import org.uacr.purepursuit.math.Point;
+import org.uacr.purepursuit.path.segment.LineSegment;
+import org.uacr.purepursuit.path.segment.PointSegment;
+import org.uacr.purepursuit.path.segment.Segment;
 
 import java.util.ArrayList;
 import java.util.Arrays;

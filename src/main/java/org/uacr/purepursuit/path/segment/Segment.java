@@ -1,7 +1,7 @@
-package purepursuit.path.segment;
+package org.uacr.purepursuit.path.segment;
 
-import purepursuit.math.Point;
-import purepursuit.math.Pose2d;
+import org.uacr.purepursuit.math.Point;
+import org.uacr.purepursuit.math.Pose2d;
 
 import java.util.Map;
 

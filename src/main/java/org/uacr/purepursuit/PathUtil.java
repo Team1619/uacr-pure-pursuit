@@ -1,4 +1,4 @@
-package purepursuit;
+package org.uacr.purepursuit;
 
 public class PathUtil {
 
