@@ -2,7 +2,7 @@ package org.uacr.purepursuit.controller;
 
 public abstract class PurePursuitController {
 
-    public abstract void reset();
+    public abstract void resetFollower();
 
-    public abstract void update();
+    public abstract void updateFollower();
 }

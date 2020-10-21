@@ -200,17 +200,17 @@ public class PointSegment extends Segment {
     }
 
     @Override
-    public Point getLookaheadPoint(Pose2d currentPosition) {
+    public Point getLookaheadPoint(Pose2d currentPose) {
         return null;
     }
 
     @Override
-    public double getDistance(Pose2d currentPosition) {
+    public double getDistance(Pose2d currentPose) {
         return 0;
     }
 
     @Override
-    public boolean isDone(Pose2d currentPosition) {
+    public boolean isDone(Pose2d currentPose) {
         return false;
     }
 

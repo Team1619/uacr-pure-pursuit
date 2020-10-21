@@ -40,11 +40,11 @@ public class TrapezoidVelocityProfile implements VelocityProfile {
             while (true) {
                 Point nextLineIntersection = fVelocityProfile.get(l).intersection(fVelocityProfile.get(l + 1));
 
-                if (nextLineIntersection.getY() > constrains.maxVelocity) {
+                if (nextLineIntersection.getY() > constrains.maxVelocity + 0.0001) {
                     fVelocityProfile.add(l + 1, new Line(fVelocityProfile.get(l).intersection(maxVelocityLine),
                             fVelocityProfile.get(l + 1).intersection(maxVelocityLine)));
                     break;
-                } else if (fVelocityProfile.get(l).slope() > 0) {
+                } else if (fVelocityProfile.get(l).slope() > 0.0) {
                     if (fVelocityProfile.get(l + 1).isInSegment(nextLineIntersection)) {
                         fVelocityProfile.set(l, new Line(fVelocityProfile.get(l).initial(), nextLineIntersection));
                         fVelocityProfile.set(l + 1, new Line(nextLineIntersection, fVelocityProfile.get(l + 1).terminal()));
@@ -65,6 +65,12 @@ public class TrapezoidVelocityProfile implements VelocityProfile {
             if(line.isInDomain(distance)) {
                 return line.evaluateX(distance).getY();
             }
+        }
+        if(distance < fVelocityProfile.get(0).initial().getX()) {
+            return fVelocityProfile.get(0).initial().getY();
+        }
+        if(fVelocityProfile.get(fVelocityProfile.size() - 1).terminal().getX() < distance) {
+            return fVelocityProfile.get(fVelocityProfile.size() - 1).terminal().getY();
         }
 
         return -1;

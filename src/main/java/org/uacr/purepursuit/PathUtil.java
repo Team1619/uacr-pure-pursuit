@@ -6,6 +6,20 @@ public class PathUtil {
 
     }
 
+    public static double angleDifference(double angle1, double angle2) {
+        double delta = angleWrap(angle2) - angleWrap(angle1);
+
+        if(delta > 180) {
+            delta = delta - 360;
+        }
+
+        if(delta < -180) {
+            delta = delta + 360;
+        }
+
+        return delta;
+    }
+
     public static double angleWrap(double angle) {
         angle += 180;
         angle %= 360;

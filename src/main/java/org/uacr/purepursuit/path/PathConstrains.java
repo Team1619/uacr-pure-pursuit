@@ -2,6 +2,7 @@ package org.uacr.purepursuit.path;
 
 public class PathConstrains {
 
+    public double lookaheadDistance = 15;
     public double pointSegmentSmoothing = 0.5;
     public double maxVelocity = 1.0;
     public double minVelocity = 0.1;

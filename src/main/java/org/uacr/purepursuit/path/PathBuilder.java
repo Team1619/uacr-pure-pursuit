@@ -43,6 +43,7 @@ public class PathBuilder {
         mCurrentSegment = null;
         mCurrentPoints = new ArrayList<>();
         mCurrentPoint = point;
+        mCurrentPoints.add(mCurrentPoint);
     }
 
     public PathBuilder lineTo(Point point) {
@@ -73,7 +74,7 @@ public class PathBuilder {
     }
 
     private void createSegment() {
-        if(mCurrentPoints.size() < 1) {
+        if(mCurrentSegmentBuildMode == SegmentBuildMode.NONE || mCurrentPoints.size() < 1) {
             return;
         }
 

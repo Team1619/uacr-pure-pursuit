@@ -63,11 +63,11 @@ public class Line {
             return null;
         }
 
-        if (slope() == Double.POSITIVE_INFINITY) {
+        if (slope() == Double.POSITIVE_INFINITY || slope() == Double.NEGATIVE_INFINITY) {
             return line.evaluateX(initial().getX());
         }
 
-        if (line.slope() == Double.POSITIVE_INFINITY) {
+        if (line.slope() == Double.POSITIVE_INFINITY || line.slope() == Double.NEGATIVE_INFINITY) {
             return evaluateX(line.initial().getX());
         }
 
@@ -86,8 +86,9 @@ public class Line {
         Point closestPoint = closestPoint(point);
 
 
-        return PathUtil.toleranceEquals(new Vector(closestPoint.subtract(terminal())).angle(), new Vector(initial().subtract(terminal())).angle(), 0.00001) &&
-                PathUtil.toleranceEquals(new Vector(closestPoint.subtract(initial())).angle(), delta().angle(), 0.00001);
+        return (PathUtil.toleranceEquals(new Vector(closestPoint.subtract(terminal())).angle(), new Vector(initial().subtract(terminal())).angle(), 0.00001) &&
+                PathUtil.toleranceEquals(new Vector(closestPoint.subtract(initial())).angle(), delta().angle(), 0.00001)) ||
+                point.equals(initial()) || point.equals(terminal());
     }
 
     public boolean isInDomain(double x) {

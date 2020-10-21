@@ -1,7 +1,9 @@
 package org.uacr.purepursuit.path.segment;
 
 import org.uacr.purepursuit.PathUtil;
-import org.uacr.purepursuit.math.*;
+import org.uacr.purepursuit.math.Line;
+import org.uacr.purepursuit.math.Point;
+import org.uacr.purepursuit.math.Pose2d;
 import org.uacr.purepursuit.math.Vector;
 
 import java.util.*;
@@ -28,16 +30,19 @@ public class LineSegment extends Segment {
         this(Arrays.asList(points));
     }
 
-    public Point getLookaheadPoint(Pose2d currentPosition) {
-        if (mCurrentLineIndex > fLines.size()) {
+    public Point getLookaheadPoint(Pose2d currentPose) {
+        if (fLines.size() < 1 || mCurrentLineIndex > fLines.size()) {
             return null;
         }
 
         Point lookaheadPoint = null;
 
         while (mCurrentLineIndex < fLines.size()) {
-            lookaheadPoint = getCorrectIntersection(currentPosition, fLines.get(mCurrentLineIndex));
+            lookaheadPoint = getCorrectIntersection(currentPose, fLines.get(mCurrentLineIndex));
             if (lookaheadPoint != null) {
+                break;
+            }
+            if (mCurrentLineIndex >= fLines.size() - 1) {
                 break;
             }
             mCurrentLineIndex++;
@@ -51,53 +56,45 @@ public class LineSegment extends Segment {
     }
 
     @Override
-    public double getDistance(Pose2d currentPosition) {
-        Point lookaheadPoint = getLookaheadPoint(currentPosition);
-
+    public double getDistance(Pose2d currentPose) {
         double distance = 0.0;
 
-        for(int l = 0; l < mCurrentLineIndex; l++) {
-            distance += fLines.get(0).length();
+        for (int l = mCurrentLineIndex - 1; l < mCurrentLineIndex; l++) {
+            distance += fLines.get(mCurrentLineIndex).length();
         }
 
-        return distance + fLines.get(mCurrentLineIndex).distanceFromInitial(lookaheadPoint);
+        return distance + fLines.get(mCurrentLineIndex).distanceFromInitial(fLines.get(mCurrentLineIndex).closestPointInSection(currentPose));
     }
 
-    private Point getCorrectIntersection(Pose2d currentPosition, Line line) {
-        Circle lookaheadCircle = new Circle(currentPosition, getLookaheadDistance());
+    private Point getCorrectIntersection(Pose2d currentPose, Line line) {
+        Point correctIntersection = null;
 
-        List<Point> intersections = lookaheadCircle.getIntersections(line);
+        Point closestPoint = line.closestPoint(currentPose);
+        double closestPointDistance = closestPoint.distance(currentPose);
 
-        if (intersections.isEmpty()) {
-            Point closestPoint = line.closestPoint(currentPosition);
+        // If the distance from the robot to the closest point on the line is greater than the lookahead distance,
+        // then use the closest point on the line as the intersection
+        if (closestPointDistance >= getLookaheadDistance()) {
+            correctIntersection = closestPoint;
+        } else {
+            // Calculate the distance from the closest point to the intersection with the pythagorean theorem
+            double lineIntersectionDistance = Math.sqrt(Math.pow(getLookaheadDistance(), 2) - Math.pow(closestPointDistance, 2));
 
-            if (line.isInSegment(closestPoint)) {
-                return closestPoint;
-            }
-            return null;
+            // Project the distance of the intersection from the current point in the direction of the line segment
+            correctIntersection = closestPoint.add(new Vector(lineIntersectionDistance, line.angle()));
         }
 
-        if (intersections.size() <= 1) {
-            Point intersection = intersections.get(0);
+        // If the intersection point exists but is beyond the end of the line segment,
+        // set it too null to move to the next segment
+        if (Math.abs(PathUtil.angleDifference(line.angle(),
+                        new Vector(line.terminal().subtract(correctIntersection)).angle())) > 0.1) {
+            // If the angle from the terminal point of the line segment to the intersection is the same as the angle
+            // of the line then the intersection is beyond the end of the line
 
-            if (line.isInSegment(intersection)) {
-                return intersection;
-            }
-
-            return null;
+            correctIntersection = null;
         }
 
-        for (Point intersection : intersections) {
-            if (new Vector(line.closestPoint(intersection).subtract(line.initial())).angle() == line.delta().angle()) {
-                if (line.isInSegment(intersection)) {
-                    return intersection;
-                } else {
-                    return null;
-                }
-            }
-        }
-
-        return null;
+        return correctIntersection;
     }
 
     public double length() {
@@ -105,7 +102,7 @@ public class LineSegment extends Segment {
     }
 
     @Override
-    public boolean isDone(Pose2d currentPosition) {
+    public boolean isDone(Pose2d currentPose) {
         return mIsDone;
     }
 
@@ -128,13 +125,20 @@ public class LineSegment extends Segment {
         for (int p = 0; p < fLines.size() - 1; p++) {
             distance += fLines.get(p).length();
 
+            // Calculate the amount of speed reduction
+            // A 90 degree angle or greater will cause a full speed reduction to the minimum path speed
             double speedReduction = Math.abs(PathUtil.angleWrap(fLines.get(p + 1).delta().angle() - fLines.get(p).delta().angle())) / 90;
 
-            if(0 < speedReduction && speedReduction <=1) {
-                speedReductions.put(distance, speedReduction);
+            // If there is a speed reduction at the current point put it in the map
+            if (0 < speedReduction) {
+                speedReductions.put(distance, Math.min(speedReduction, 1));
             }
         }
 
         return speedReductions;
+    }
+
+    public String toString() {
+        return fLines.toString();
     }
 }

@@ -21,17 +21,37 @@ public abstract class Segment {
         return mLookaheadDistance;
     }
 
+    /**
+     * @return the total length of the segment.
+     */
     public abstract double length();
 
-    public abstract Point getLookaheadPoint(Pose2d currentPosition);
+    public abstract Point getLookaheadPoint(Pose2d currentPose);
 
-    public abstract double getDistance(Pose2d currentPosition);
+    /**
+     * Calculates the distance along the segment the given pose is
+     *
+     * @param currentPose the pose of the robot
+     * @return the distance along the segment the robot is
+     */
+    public abstract double getDistance(Pose2d currentPose);
 
-    public abstract boolean isDone(Pose2d currentPosition);
+    /**
+     * Determines whether the segment is done based on the robots pose
+     *
+     * @param currentPose the pose of the robot
+     * @return whether the segment is finished
+     */
+    public abstract boolean isDone(Pose2d currentPose);
 
     public abstract double getInitialAngle();
 
     public abstract double getFinalAngle();
 
+    /**
+     * Calculates all the points of speed reduction along the segment.
+     *
+     * @return a map with the keys being distances of the speed reductions and values being the speed reductions.
+     */
     public abstract Map<Double, Double> getSpeedReductions();
 }
